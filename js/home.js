@@ -133,4 +133,19 @@ function loop(now) {
   }
 }
 requestAnimationFrame(loop);
+
+/* ---- scroll reveal ---- */
+const revEls = document.querySelectorAll('.reveal');
+if (revEls.length) {
+  if ('IntersectionObserver' in window) {
+    const rio = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) { e.target.classList.add('in'); rio.unobserve(e.target); }
+      }
+    }, { threshold: 0.12 });
+    revEls.forEach((el) => rio.observe(el));
+  } else {
+    revEls.forEach((el) => el.classList.add('in'));
+  }
+}
 })();
