@@ -164,8 +164,7 @@ canvas.preview{width:100%;height:auto;display:block;background:#08031a}
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
   text-align:center;padding:24px;background:rgba(5,1,16,.62);backdrop-filter:blur(3px);
   transition:opacity .25s ease;cursor:pointer;
-}
-.overlay.hidden{opacity:0;pointer-events:none}
+}.overlay.hidden{opacity:0;pointer-events:none}
 .ov-eyebrow{font-family:var(--font-display);font-size:.7rem;letter-spacing:.34em;color:var(--cyan)}
 .ov-title{font-family:var(--font-display);font-weight:900;font-size:clamp(2rem,9vw,2.9rem);letter-spacing:.05em;background:linear-gradient(100deg,var(--cyan),var(--magenta));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 22px rgba(255,43,214,.35))}
 .ov-score{font-family:var(--font-display);font-size:2.6rem;font-weight:800;color:#fff;text-shadow:0 0 20px rgba(0,240,255,.7)}
@@ -184,4 +183,41 @@ canvas.preview{width:100%;height:auto;display:block;background:#08031a}
   .nav{padding:12px 16px}
   .nav-link{display:none}
   .hero{padding-top:40px}
+}
+
+/* ============ Polish pass: orbs, ticker, reveal, shine ============ */
+.hero{overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;pointer-events:none;z-index:0}
+.orb-a{width:340px;height:340px;left:-90px;top:-40px;background:radial-gradient(circle,rgba(0,240,255,.55),transparent 70%);animation:drift 11s ease-in-out infinite alternate}
+.orb-b{width:380px;height:380px;right:-110px;top:30px;background:radial-gradient(circle,rgba(255,43,214,.5),transparent 70%);animation:drift 13s ease-in-out infinite alternate-reverse}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(46px,34px) scale(1.12)}}
+.hero>*:not(.orb){position:relative;z-index:1}
+.ticker{position:relative;z-index:1;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(10,4,30,.6);padding:11px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.ticker-track{display:inline-flex;gap:26px;white-space:nowrap;animation:tick 22s linear infinite;font-family:var(--font-display);font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.ticker-track i{color:var(--magenta);font-style:normal;text-shadow:0 0 10px var(--magenta)}
+.ticker-track span:nth-child(4n+1){color:var(--cyan)}
+@keyframes tick{to{transform:translateX(-50%)}}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.games-grid .reveal:nth-child(2){transition-delay:.12s}
+.game-card{position:relative}
+.game-card::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.14) 50%,transparent 60%);transform:translateX(-120%);transition:transform .8s ease}
+.game-card:hover::after{transform:translateX(120%)}
+.btn-primary{position:relative;overflow:hidden}
+.btn-primary::after{content:"";position:absolute;top:0;bottom:0;width:60px;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:translateX(-140px) skewX(-18deg);animation:btnsheen 3.6s ease-in-out infinite}
+@keyframes btnsheen{0%,55%{transform:translateX(-140px) skewX(-18deg)}90%,100%{transform:translateX(340px) skewX(-18deg)}}
+.footer-links{display:flex;gap:22px;justify-content:center;margin:14px 0 16px}
+.footer-links a{color:var(--muted);text-decoration:none;font-weight:600;font-size:.9rem}
+.footer-links a:hover{color:var(--cyan);text-shadow:0 0 12px rgba(0,240,255,.6)}
+.stage{animation:stagePulse 4.5s ease-in-out infinite}
+@keyframes stagePulse{
+  0%,100%{box-shadow:0 0 34px rgba(0,240,255,.14),0 24px 60px rgba(0,0,0,.55)}
+  50%{box-shadow:0 0 52px rgba(0,240,255,.30),0 0 90px rgba(255,43,214,.14),0 24px 60px rgba(0,0,0,.55)}
+}
+.ov-title{animation:titleFloat 5s ease-in-out infinite}
+@keyframes titleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+  html{scroll-behavior:auto}
 }
