@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="pag" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#00f0ff"/>
+      <stop offset="1" stop-color="#ff2bd6"/>
+    </linearGradient>
+    <filter id="paglow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="2.6" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <polygon points="32,5 57,18.5 57,45.5 32,59 7,45.5 7,18.5"
+           fill="none" stroke="url(#pag)" stroke-width="4.5"
+           stroke-linejoin="round" filter="url(#paglow)"/>
+  <polygon points="26,22.5 26,41.5 43.5,32"
+           fill="url(#pag)" filter="url(#paglow)"/>
+</svg>
