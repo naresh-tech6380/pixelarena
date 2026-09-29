@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PixelArena — Neon Arcade Games</title>
+<meta name="description" content="PixelArena: free neon arcade games for players 15–20. Play Neon Rush and Neon Snake instantly — no logins, no downloads.">
+<meta name="theme-color" content="#060213">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="bg-grid" aria-hidden="true"></div>
+
+<nav class="nav">
+  <a class="brand" href="index.html">
+    <img src="assets/logo.svg" alt="PixelArena logo" width="34" height="34">
+    <span>Pixel<em>Arena</em></span>
+  </a>
+  <div class="nav-links">
+    <a href="#games" class="nav-link">Games</a>
+    <a href="games/neon-rush/index.html" class="btn btn-small">Play now</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <p class="eyebrow">Free arcade · No logins · 60 FPS</p>
+  <h1 class="glitch">PIXEL<span>ARENA</span></h1>
+  <p class="tagline">Neon-soaked arcade games for the bold.<br>Tap in. Chase the high score. Beat your friends.</p>
+  <div class="hero-cta">
+    <a href="games/neon-rush/index.html" class="btn btn-primary">▶&nbsp; Play Neon Rush</a>
+    <a href="#games" class="btn btn-ghost">Browse games</a>
+  </div>
+  <div class="hero-stats">
+    <div><strong>2</strong><span>launch games</span></div>
+    <div><strong>60</strong><span>fps target</span></div>
+    <div><strong>0</strong><span>signups needed</span></div>
+  </div>
+</header>
+
+<main>
+  <section id="games" class="section">
+    <h2 class="section-title">Choose your <span>game</span></h2>
+    <div class="games-grid">
+
+      <article class="game-card live">
+        <div class="card-preview-wrap">
+          <canvas class="preview" data-preview="rush" width="440" height="240" aria-label="Neon Rush animated preview"></canvas>
+          <span class="badge badge-live">● Live</span>
+        </div>
+        <div class="card-body">
+          <h3>Neon Rush</h3>
+          <p class="card-tag">Endless runner</p>
+          <p class="card-desc">Sprint through a neon city at breakneck speed. Jump the spikes, dodge the drones, grab every coin.</p>
+          <a href="games/neon-rush/index.html" class="btn btn-primary btn-block">Play now</a>
+        </div>
+      </article>
+
+      <article class="game-card soon">
+        <div class="card-preview-wrap">
+          <canvas class="preview" data-preview="snake" width="440" height="240" aria-label="Neon Snake animated preview"></canvas>
+          <span class="badge badge-soon">Coming soon</span>
+        </div>
+        <div class="card-body">
+          <h3>Neon Snake</h3>
+          <p class="card-tag">Modern arcade snake</p>
+          <p class="card-desc">The classic, reborn in neon. Eat, grow, glow — just don't bite yourself.</p>
+          <button class="btn btn-disabled btn-block" disabled>Coming soon</button>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="section features">
+    <h2 class="section-title">Why <span>PixelArena</span></h2>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <h3>Instant play</h3>
+        <p>No downloads, no accounts, no waiting. Tap a game and you're in within seconds — even on 4G.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🏆</div>
+        <h3>High scores</h3>
+        <p>Your best runs are saved on your device. Share your score on WhatsApp and dare friends to beat it.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📦</div>
+        <h3>Installable</h3>
+        <p>Add PixelArena to your home screen and play offline like a native app.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-brand">
+    <img src="assets/logo.svg" alt="" width="26" height="26">
+    <span>Pixel<em>Arena</em></span>
+  </div>
+  <p>Made for players. More games dropping soon.</p>
+  <p class="copy">© 2026 PixelArena</p>
+</footer>
+
+<script src="js/home.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}
+</script>
+</body>
+</html>
