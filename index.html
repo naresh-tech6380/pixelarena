@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Neon Rush — PixelArena</title>
+<meta name="description" content="Neon Rush: a neon endless runner. Jump spikes, dodge drones, chase the high score. Free on PixelArena.">
+<meta name="theme-color" content="#060213">
+<link rel="icon" type="image/svg+xml" href="../../assets/logo.svg">
+<link rel="manifest" href="../../manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+</head>
+<body class="game-page">
+<a class="back" href="../../index.html">← PixelArena</a>
+
+<div class="game-wrap">
+  <div class="hud">
+    <div class="score-box">
+      <div class="score-label">Score</div>
+      <div class="score-val" id="score">0</div>
+      <div class="best-line">Best <b id="best">0</b></div>
+    </div>
+    <div class="hud-btns">
+      <button class="icon-btn" id="muteBtn" aria-label="Toggle sound">🔊</button>
+      <button class="icon-btn" id="pauseBtn" aria-label="Pause">⏸</button>
+    </div>
+  </div>
+
+  <div class="stage" id="stage">
+    <canvas id="game" width="480" height="720"></canvas>
+
+    <div class="overlay" id="titleOverlay">
+      <div class="ov-eyebrow">PixelArena presents</div>
+      <div class="ov-title">NEON RUSH</div>
+      <div class="ov-best">Best <b id="titleBest">0</b></div>
+      <div class="tap-hint">Tap to run</div>
+      <div class="ov-controls">Tap / Space — jump · double-tap — double jump</div>
+    </div>
+
+    <div class="overlay hidden" id="overOverlay">
+      <div class="ov-eyebrow">Run over</div>
+      <div class="ov-score" id="finalScore">0</div>
+      <div class="newbest" id="newBest">★ New best ★</div>
+      <div class="ov-best">Best <b id="overBest">0</b></div>
+      <div class="ov-buttons">
+        <button class="btn btn-primary" id="retryBtn">↻&nbsp; Run again</button>
+        <a class="btn btn-ghost" id="shareBtn" href="#" target="_blank" rel="noopener">Share score</a>
+      </div>
+    </div>
+
+    <div class="overlay hidden" id="pauseOverlay">
+      <div class="ov-eyebrow">Paused</div>
+      <div class="ov-title">NEON RUSH</div>
+      <div class="ov-buttons">
+        <button class="btn btn-primary" id="resumeBtn">▶&nbsp; Resume</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="hint">Tip: release jump early for a short hop, hold it to fly.</p>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
