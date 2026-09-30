@@ -1,5 +1,5 @@
 /* PixelArena service worker — offline-first shell */
-const CACHE = 'pixelarena-v5';
+const CACHE = 'pixelarena-v6';
 const CORE = [
   './',
   './index.html',
