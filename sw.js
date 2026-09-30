@@ -1,8 +1,9 @@
 /* PixelArena service worker — offline-first shell */
-const CACHE = 'pixelarena-v6';
+const CACHE = 'pixelarena-v7';
 const CORE = [
   './',
   './index.html',
+  './privacy.html',
   './404.html',
   './css/style.css',
   './js/home.js',
