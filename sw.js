@@ -1,5 +1,5 @@
 /* PixelArena service worker — offline-first shell */
-const CACHE = 'pixelarena-v4';
+const CACHE = 'pixelarena-v5';
 const CORE = [
   './',
   './index.html',
@@ -15,6 +15,8 @@ const CORE = [
   './games/neon-rush/game.js',
   './games/neon-snake/index.html',
   './games/neon-snake/game.js',
+  './games/stack-tower/index.html',
+  './games/stack-tower/game.js',
 ];
 
 self.addEventListener('install', (e) => {
