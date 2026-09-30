@@ -138,6 +138,7 @@ function startGame() {
   G.mode = 'playing';
   titleOverlay.classList.add('hidden');
   overOverlay.classList.add('hidden');
+  if (typeof gtag === 'function') gtag('event', 'game_start', { game_name: 'stack_tower' });
 }
 // background stars (screen space, init once)
 for (let i = 0; i < 70; i++)
