@@ -172,6 +172,7 @@ function startGame() {
   G.mode = 'playing';
   titleOverlay.classList.add('hidden');
   overOverlay.classList.add('hidden');
+  if (typeof gtag === 'function') gtag('event', 'game_start', { game_name: 'neon_snake' });
 }
 let swipeStart = null;
 stage.addEventListener('pointerdown', (e) => {
