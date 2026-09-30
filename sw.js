@@ -1,5 +1,5 @@
 /* PixelArena service worker — offline-first shell */
-const CACHE = 'pixelarena-v3';
+const CACHE = 'pixelarena-v4';
 const CORE = [
   './',
   './index.html',
@@ -17,11 +17,9 @@ const CORE = [
   './games/neon-snake/game.js',
 ];
 
-
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(CORE)).then(() => self.skipWaiting()));
 });
-
 
 self.addEventListener('activate', (e) => {
   e.waitUntil(
@@ -30,7 +28,6 @@ self.addEventListener('activate', (e) => {
       .then(() => self.clients.claim())
   );
 });
-
 
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
