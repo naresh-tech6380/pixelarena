@@ -12,7 +12,7 @@ gtag('config', 'G-P9CE8QL0CX');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>PixelArena — Neon Arcade Games</title>
-<meta name="description" content="PixelArena: free neon arcade games for players 15–20. Play Neon Rush, Neon Snake and Stack Tower instantly — no logins, no downloads.">
+<meta name="description" content="PixelArena: free neon arcade games for players 15–20. Play Neon Rush, Shadow Clash, Neon Snake and Stack Tower instantly — no logins, no downloads.">
 <link rel="canonical" href="https://naresh-tech6380.github.io/pixelarena/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PixelArena">
@@ -37,7 +37,8 @@ gtag('config', 'G-P9CE8QL0CX');
 {"@context":"https://schema.org","@type":"ItemList","name":"PixelArena games","itemListElement":[
 {"@type":"ListItem","position":1,"item":{"@type":"VideoGame","name":"Neon Rush","url":"https://naresh-tech6380.github.io/pixelarena/games/neon-rush/","applicationCategory":"Game","operatingSystem":"Web"}},
 {"@type":"ListItem","position":2,"item":{"@type":"VideoGame","name":"Neon Snake","url":"https://naresh-tech6380.github.io/pixelarena/games/neon-snake/","applicationCategory":"Game","operatingSystem":"Web"}},
-{"@type":"ListItem","position":3,"item":{"@type":"VideoGame","name":"Stack Tower","url":"https://naresh-tech6380.github.io/pixelarena/games/stack-tower/","applicationCategory":"Game","operatingSystem":"Web"}}]}
+{"@type":"ListItem","position":3,"item":{"@type":"VideoGame","name":"Stack Tower","url":"https://naresh-tech6380.github.io/pixelarena/games/stack-tower/","applicationCategory":"Game","operatingSystem":"Web"}},
+{"@type":"ListItem","position":4,"item":{"@type":"VideoGame","name":"Shadow Clash","url":"https://naresh-tech6380.github.io/pixelarena/games/shadow-clash/","applicationCategory":"Game","operatingSystem":"Web"}}]}
 </script>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,11 +67,11 @@ gtag('config', 'G-P9CE8QL0CX');
   <h1 class="glitch">PIXEL<span>ARENA</span></h1>
   <p class="tagline">Neon-soaked arcade games for the bold.<br>Tap in. Chase the high score. Beat your friends.</p>
   <div class="hero-cta">
-    <a href="games/neon-rush/index.html" class="btn btn-primary">▶&nbsp; Play Neon Rush</a>
-    <a href="#games" class="btn btn-ghost">Browse games</a>
+    <a href="#games" class="btn btn-primary">▶&nbsp; Start playing</a>
+    <button id="randomGameBtn" class="btn btn-ghost" type="button">🎲&nbsp; Surprise me</button>
   </div>
   <div class="hero-stats">
-    <div><strong>3</strong><span>launch games</span></div>
+    <div><strong>4</strong><span>launch games</span></div>
     <div><strong>60</strong><span>fps target</span></div>
     <div><strong>0</strong><span>signups needed</span></div>
   </div>
@@ -78,8 +79,8 @@ gtag('config', 'G-P9CE8QL0CX');
 
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span>Free forever</span><i>✦</i><span>No signups</span><i>✦</i><span>New — Stack Tower</span><i>✦</i><span>Boss fights every 100m</span><i>✦</i><span>Works offline</span><i>✦</i>
-    <span>Free forever</span><i>✦</i><span>No signups</span><i>✦</i><span>New — Stack Tower</span><i>✦</i><span>Boss fights every 100m</span><i>✦</i><span>Works offline</span><i>✦</i>
+    <span>Free forever</span><i>✦</i><span>No signups</span><i>✦</i><span>New — Shadow Clash</span><i>✦</i><span>Boss fights every 100m</span><i>✦</i><span>Works offline</span><i>✦</i>
+    <span>Free forever</span><i>✦</i><span>No signups</span><i>✦</i><span>New — Shadow Clash</span><i>✦</i><span>Boss fights every 100m</span><i>✦</i><span>Works offline</span><i>✦</i>
   </div>
 </div>
 
@@ -127,6 +128,19 @@ gtag('config', 'G-P9CE8QL0CX');
         </div>
       </article>
 
+      <article class="game-card live reveal">
+        <div class="card-preview-wrap">
+          <canvas id="clashPreview" width="440" height="240" aria-label="Shadow Clash preview"></canvas>
+          <span class="badge badge-new">New</span>
+        </div>
+        <div class="card-body">
+          <h3>Shadow Clash</h3>
+          <p class="card-tag">Shadow fighter</p>
+          <p class="card-desc">Duel a ruthless AI in silhouette combat. Punch, kick, block — best of 3 rounds takes it.</p>
+          <a href="games/shadow-clash/index.html" class="btn btn-primary btn-block">Play now</a>
+        </div>
+      </article>
+
     </div>
   </section>
 
@@ -159,6 +173,7 @@ gtag('config', 'G-P9CE8QL0CX');
   </div>
   <nav class="footer-links">
     <a href="games/neon-rush/index.html">Neon Rush</a>
+    <a href="games/shadow-clash/index.html">Shadow Clash</a>
     <a href="games/neon-snake/index.html">Neon Snake</a>
     <a href="privacy.html">Privacy</a>
     <a href="https://wa.me/?text=Play%20free%20neon%20arcade%20games%20%E2%80%94%20no%20logins%2C%20no%20downloads%3A%20https%3A%2F%2Fnaresh-tech6380.github.io%2Fpixelarena%2F" target="_blank" rel="noopener">Share ↗</a>
@@ -203,6 +218,78 @@ gtag('config', 'G-P9CE8QL0CX');
   if (ctx.roundRect) { ctx.beginPath(); ctx.roundRect(mx, y, mw, bh, 5); ctx.fill(); }
   else ctx.fillRect(mx, y, mw, bh);
   ctx.restore();
+})();
+</script>
+<script>
+/* Shadow Clash card preview: two silhouettes facing off under a moon */
+(function () {
+  var cv = document.getElementById('clashPreview');
+  if (!cv) return;
+  var ctx = cv.getContext('2d'), W = cv.width, H = cv.height;
+  var g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, '#070313'); g.addColorStop(.7, '#120826'); g.addColorStop(1, '#1c0a33');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  // moon
+  var mg = ctx.createRadialGradient(W/2, 66, 8, W/2, 66, 64);
+  mg.addColorStop(0, 'rgba(220,240,255,.95)'); mg.addColorStop(.35, 'rgba(180,220,255,.35)'); mg.addColorStop(1, 'rgba(180,220,255,0)');
+  ctx.fillStyle = mg; ctx.beginPath(); ctx.arc(W/2, 66, 64, 0, 7); ctx.fill();
+  ctx.fillStyle = '#e8f4ff'; ctx.beginPath(); ctx.arc(W/2, 66, 26, 0, 7); ctx.fill();
+  // floor
+  ctx.fillStyle = '#0a0518'; ctx.fillRect(0, H - 46, W, 46);
+  ctx.strokeStyle = 'rgba(0,240,255,.25)'; ctx.beginPath(); ctx.moveTo(0, H - 46); ctx.lineTo(W, H - 46); ctx.stroke();
+  // fighters
+  function fighter(x, color, flip) {
+    ctx.save();
+    ctx.translate(x, H - 46); ctx.scale(flip, 1);
+    ctx.shadowColor = color; ctx.shadowBlur = 16;
+    ctx.strokeStyle = '#05030c'; ctx.fillStyle = '#05030c'; ctx.lineWidth = 13; ctx.lineCap = 'round';
+    // legs (fighting stance)
+    ctx.beginPath(); ctx.moveTo(0, -58); ctx.lineTo(-20, 0); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, -58); ctx.lineTo(18, -2); ctx.stroke();
+    // torso
+    ctx.beginPath(); ctx.moveTo(0, -108); ctx.lineTo(0, -58); ctx.stroke();
+    // rear guard arm
+    ctx.beginPath(); ctx.moveTo(0, -96); ctx.lineTo(20, -84); ctx.stroke();
+    // lead punch arm extended
+    ctx.lineWidth = 11;
+    ctx.beginPath(); ctx.moveTo(0, -96); ctx.lineTo(44, -92); ctx.stroke();
+    ctx.fillStyle = color; ctx.beginPath(); ctx.arc(46, -92, 6, 0, 7); ctx.fill();
+    // head
+    ctx.fillStyle = '#05030c'; ctx.beginPath(); ctx.arc(4, -124, 13, 0, 7); ctx.fill();
+    // neon rim
+    ctx.shadowBlur = 0; ctx.strokeStyle = color; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.arc(4, -124, 13, -.6, 1.2); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(2, -108); ctx.lineTo(2, -60); ctx.stroke();
+    ctx.restore();
+  }
+  fighter(W/2 - 78, '#00f0ff', 1);
+  fighter(W/2 + 78, '#ff2fb3', -1);
+  // clash spark
+  ctx.save();
+  ctx.shadowColor = '#fff'; ctx.shadowBlur = 22;
+  ctx.strokeStyle = '#fff'; ctx.lineWidth = 3;
+  for (var i = 0; i < 8; i++) {
+    var a = i / 8 * Math.PI * 2;
+    ctx.beginPath(); ctx.moveTo(W/2, H - 138);
+    ctx.lineTo(W/2 + Math.cos(a) * 26, H - 138 + Math.sin(a) * 26); ctx.stroke();
+  }
+  ctx.restore();
+})();
+</script>
+<script>
+/* Surprise me: jump to a random game */
+(function () {
+  var btn = document.getElementById('randomGameBtn');
+  if (!btn) return;
+  var games = [
+    'games/neon-rush/index.html',
+    'games/shadow-clash/index.html',
+    'games/neon-snake/index.html',
+    'games/stack-tower/index.html'
+  ];
+  btn.addEventListener('click', function () {
+    location.href = games[Math.floor(Math.random() * games.length)];
+  });
 })();
 </script>
 <script>
