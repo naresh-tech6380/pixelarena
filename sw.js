@@ -1,5 +1,5 @@
 /* PixelArena service worker — offline-first shell */
-const CACHE = 'pixelarena-v8';
+const CACHE = 'pixelarena-v9';
 const CORE = [
   './',
   './index.html',
@@ -20,6 +20,7 @@ const CORE = [
   './games/stack-tower/game.js',
   './games/shadow-clash/index.html',
   './games/shadow-clash/game.js',
+  './games/shadow-clash/assets/dojo-bg.jpg',
 ];
 
 self.addEventListener('install', (e) => {
