@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Stack Tower — PixelArena</title>
+<meta name="description" content="Stack Tower: stack the neon blocks as high as you can — one tap per block. Free on PixelArena.">
+<link rel="canonical" href="https://naresh-tech6380.github.io/pixelarena/games/stack-tower/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PixelArena">
+<meta property="og:title" content="Stack Tower — PixelArena">
+<meta property="og:description" content="Stack the neon blocks as high as you can — one tap per block. Perfect drops build combos. Free — no logins.">
+<meta property="og:url" content="https://naresh-tech6380.github.io/pixelarena/games/stack-tower/">
+<meta property="og:image" content="https://naresh-tech6380.github.io/pixelarena/assets/og-banner.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Stack Tower — PixelArena">
+<meta name="twitter:image" content="https://naresh-tech6380.github.io/pixelarena/assets/og-banner.png">
+<meta name="theme-color" content="#060213">
+<link rel="icon" type="image/svg+xml" href="../../assets/logo.svg">
+<link rel="apple-touch-icon" href="../../assets/icons/icon-192.png">
+<link rel="manifest" href="../../manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<style>
+  #game { touch-action: none; }
+</style>
+</head>
+<body class="game-page">
+<a class="back" href="../../index.html">← PixelArena</a>
+
+<div class="game-wrap">
+  <div class="hud">
+    <div class="score-box">
+      <div class="score-label">Score</div>
+      <div class="score-val" id="score">0</div>
+      <div class="best-line">Best <b id="best">0</b></div>
+    </div>
+    <div class="hud-btns">
+      <button class="icon-btn" id="muteBtn" aria-label="Toggle sound">🔊</button>
+      <button class="icon-btn" id="pauseBtn" aria-label="Pause">⏸</button>
+    </div>
+  </div>
+
+  <div class="stage" id="stage">
+    <canvas id="game" width="480" height="720"></canvas>
+
+    <div class="overlay" id="titleOverlay">
+      <div class="ov-eyebrow">PixelArena presents</div>
+      <div class="ov-title">STACK TOWER</div>
+      <div class="ov-best">Best <b id="titleBest">0</b></div>
+      <div class="tap-hint">Tap to start</div>
+      <div class="ov-controls">Tap / Click / Space — drop the block<br>Stack them high. One miss ends the run.</div>
+    </div>
+
+    <div class="overlay hidden" id="overOverlay">
+      <div class="ov-eyebrow">Tower toppled</div>
+      <div class="ov-score" id="finalScore">0</div>
+      <div class="newbest" id="newBest">★ New best ★</div>
+      <div class="ov-best">Best <b id="overBest">0</b></div>
+      <div class="ov-buttons">
+        <button class="btn btn-primary" id="retryBtn">↻&nbsp; Play again</button>
+        <a class="btn btn-ghost" id="shareBtn" href="#" target="_blank" rel="noopener">Share score</a>
+      </div>
+    </div>
+
+    <div class="overlay hidden" id="pauseOverlay">
+      <div class="ov-eyebrow">Paused</div>
+      <div class="ov-title">STACK TOWER</div>
+      <div class="ov-buttons">
+        <button class="btn btn-primary" id="resumeBtn">▶&nbsp; Resume</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="hint">Tip: line the block up perfectly to keep its full width and build a combo!</p>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
