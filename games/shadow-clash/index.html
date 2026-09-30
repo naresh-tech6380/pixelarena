@@ -32,21 +32,9 @@ gtag('config', 'G-P9CE8QL0CX');
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../css/style.css">
 <style>
-  /* ---- Fight HUD (health bars, timer, round pips) ---- */
-  .fight-hud{flex:1;display:flex;align-items:center;gap:10px;margin-right:10px;min-width:0}
-  .hp-wrap{flex:1;min-width:0}
-  .hp-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
-  .fname{font-family:Orbitron,sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.22em}
-  .fname.p1{color:#00f0ff;text-shadow:0 0 10px rgba(0,240,255,.7)}
-  .fname.p2{color:#ff2bd6;text-shadow:0 0 10px rgba(255,43,214,.7)}
-  .hp-dmg{font-size:.62rem;color:#8b8ba3;font-family:Orbitron,sans-serif}
-  .hp-bar{height:12px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);overflow:hidden}
-  .hp-fill{height:100%;width:100%;border-radius:999px;transition:width .18s ease}
-  .hp-fill.p1{background:linear-gradient(90deg,#00c8d8,#7df9ff);box-shadow:0 0 12px rgba(0,240,255,.8)}
-  .hp-wrap.right .hp-fill{margin-left:auto;background:linear-gradient(90deg,#ff7ae2,#ff2bd6);box-shadow:0 0 12px rgba(255,43,214,.8)}
-  .hp-wrap.right .hp-top{flex-direction:row-reverse}
-  .pips{display:flex;gap:5px;margin-top:5px}
-  .hp-wrap.right .pips{justify-content:flex-end}
+  /* ---- Fight HUD (slim: round pips + timer; HP lives above fighters' heads) ---- */
+  .fight-hud{flex:1;display:flex;align-items:center;justify-content:center;gap:16px;margin-right:10px;min-width:0}
+  .pips{display:flex;gap:5px}
   .pip{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28)}
   .pip.won-p1{background:#00f0ff;box-shadow:0 0 9px #00f0ff;border-color:#00f0ff}
   .pip.won-p2{background:#ff2bd6;box-shadow:0 0 9px #ff2bd6;border-color:#ff2bd6}
@@ -55,10 +43,13 @@ gtag('config', 'G-P9CE8QL0CX');
   @keyframes tpulse{50%{transform:scale(1.12)}}
 
   /* ---- Touch controls ---- */
-  .fight-controls{position:absolute;left:0;right:0;bottom:10px;z-index:6;display:flex;justify-content:space-between;align-items:flex-end;padding:0 12px;pointer-events:none}
+  .fight-controls{position:absolute;left:0;right:0;bottom:10px;z-index:6;display:flex;justify-content:flex-end;align-items:flex-end;padding:0 12px;pointer-events:none;touch-action:none}
   .fight-controls.hidden{display:none}
-  .fc-move{display:flex;gap:10px}
   .fc-acts{display:grid;grid-template-columns:repeat(2,auto);gap:10px}
+  /* virtual joystick (bottom-left) */
+  .joy-zone{position:absolute;left:14px;bottom:4px;width:132px;height:132px;pointer-events:auto;touch-action:none;z-index:7}
+  .joy-base{position:absolute;inset:0;border-radius:50%;background:rgba(10,4,30,.5);border:2px solid rgba(0,240,255,.5);box-shadow:0 0 18px rgba(0,240,255,.25),inset 0 0 24px rgba(0,240,255,.12)}
+  .joy-knob{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(0,240,255,.9),rgba(0,120,140,.9));border:2px solid rgba(255,255,255,.35);box-shadow:0 0 16px rgba(0,240,255,.6)}
   .boss-btn{pointer-events:auto;touch-action:manipulation;user-select:none;-webkit-user-select:none;width:62px;height:62px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:23px;line-height:1;color:#fff;background:rgba(10,4,30,.72);border:2px solid #00f0ff;cursor:pointer;box-shadow:0 0 18px rgba(0,240,255,.45),inset 0 0 12px rgba(0,240,255,.2);font-family:Orbitron,sans-serif;-webkit-tap-highlight-color:transparent}
   .boss-btn span{font-size:8px;font-weight:800;letter-spacing:1px;margin-top:3px}
   .boss-btn:active,.boss-btn.held{transform:scale(.9);background:rgba(0,240,255,.22)}
@@ -66,9 +57,9 @@ gtag('config', 'G-P9CE8QL0CX');
   .kick-btn:active,.kick-btn.held{background:rgba(255,43,214,.22)}
   .block-btn{border-color:#b14bff;box-shadow:0 0 18px rgba(177,75,255,.5),inset 0 0 12px rgba(177,75,255,.2)}
   .block-btn:active,.block-btn.held{background:rgba(177,75,255,.25)}
-  .jump-btn{border-color:#ffd23f;box-shadow:0 0 18px rgba(255,210,63,.45),inset 0 0 12px rgba(255,210,63,.2)}
-  .jump-btn:active,.jump-btn.held{background:rgba(255,210,63,.2)}
-  .move-btn{border-color:#00f0ff}
+  .burst-btn{border-color:#5a3a8c;opacity:.45;filter:grayscale(.7)}
+  .burst-btn.ready{opacity:1;filter:none;border-color:#c77dff;box-shadow:0 0 24px rgba(183,110,255,.85),inset 0 0 14px rgba(183,110,255,.35);animation:burstPulse 1s infinite}
+  @keyframes burstPulse{50%{box-shadow:0 0 36px rgba(199,125,255,1),inset 0 0 18px rgba(199,125,255,.5)}}
   /* ---- Difficulty select ---- */
   .diff-row{display:flex;gap:10px;justify-content:center;margin:14px 0 4px}
   .diff-btn{font-family:Orbitron,sans-serif;display:flex;flex-direction:column;align-items:center;gap:4px;
@@ -80,6 +71,8 @@ gtag('config', 'G-P9CE8QL0CX');
   .diff-btn[data-diff="0"]{border-color:#00f0ff;box-shadow:0 0 16px rgba(0,240,255,.35)}
   .diff-btn[data-diff="1"]{border-color:#b14bff;box-shadow:0 0 16px rgba(177,75,255,.4)}
   .diff-btn[data-diff="2"]{border-color:#ff2fb3;box-shadow:0 0 16px rgba(255,47,179,.45)}
+  /* ---- Title screen over the dojo ---- */
+  #titleOverlay{background:linear-gradient(rgba(5,2,14,.74),rgba(5,2,14,.88)),url('assets/dojo-bg.jpg') center/cover no-repeat}
 </style>
 </head>
 <body class="game-page">
@@ -88,17 +81,9 @@ gtag('config', 'G-P9CE8QL0CX');
 <div class="game-wrap">
   <div class="hud">
     <div class="fight-hud">
-      <div class="hp-wrap">
-        <div class="hp-top"><span class="fname p1">YOU</span><span class="hp-dmg" id="dmg1"></span></div>
-        <div class="hp-bar"><div class="hp-fill p1" id="hp1"></div></div>
-        <div class="pips" id="pips1"><span class="pip"></span><span class="pip"></span></div>
-      </div>
+      <div class="pips" id="pips1"><span class="pip"></span><span class="pip"></span></div>
       <div class="timer" id="timer">45</div>
-      <div class="hp-wrap right">
-        <div class="hp-top"><span class="fname p2">AI</span><span class="hp-dmg" id="dmg2"></span></div>
-        <div class="hp-bar"><div class="hp-fill p2" id="hp2"></div></div>
-        <div class="pips" id="pips2"><span class="pip"></span><span class="pip"></span></div>
-      </div>
+      <div class="pips" id="pips2"><span class="pip"></span><span class="pip"></span></div>
     </div>
     <div class="hud-btns">
       <button class="icon-btn" id="muteBtn" aria-label="Toggle sound">🔊</button>
@@ -110,15 +95,12 @@ gtag('config', 'G-P9CE8QL0CX');
     <canvas id="game" width="480" height="720"></canvas>
 
     <div class="fight-controls hidden" id="fightControls">
-      <div class="fc-move">
-        <button class="boss-btn move-btn" id="leftBtn">◀<span>LEFT</span></button>
-        <button class="boss-btn move-btn" id="rightBtn">▶<span>RIGHT</span></button>
-      </div>
+      <div class="joy-zone" id="joyZone"><div class="joy-base"><div class="joy-knob" id="joyKnob"></div></div></div>
       <div class="fc-acts">
         <button class="boss-btn" id="punchBtn">👊<span>PUNCH</span></button>
         <button class="boss-btn kick-btn" id="kickBtn">🦵<span>KICK</span></button>
         <button class="boss-btn block-btn" id="blockBtn">🛡<span>BLOCK</span></button>
-        <button class="boss-btn jump-btn" id="jumpBtn">⬆<span>JUMP</span></button>
+        <button class="boss-btn burst-btn" id="burstBtn">⚡<span>BURST</span></button>
       </div>
     </div>
 
@@ -132,7 +114,7 @@ gtag('config', 'G-P9CE8QL0CX');
         <button class="diff-btn" data-diff="2" type="button">🔥<span>HARD</span></button>
       </div>
       <div class="tap-hint">Tap a level to fight</div>
-      <div class="ov-controls">A/D or ◀ ▶ — move · J — punch · K — kick<br>L — block (hold) · W — jump · Best of 3 rounds</div>
+      <div class="ov-controls">Joystick / A,D — move · hold back to guard · flick up / W — jump<br>J — punch · K — kick · L — block (tap = parry) · X — burst · Best of 3</div>
     </div>
 
     <div class="overlay hidden" id="overOverlay">
@@ -156,7 +138,7 @@ gtag('config', 'G-P9CE8QL0CX');
     </div>
   </div>
 
-  <p class="hint">Tip: blocking negates almost all damage but you can't move. Jump just as the AI attacks to dodge it completely.</p>
+  <p class="hint">Tip: hold AWAY to auto-block. Tap 🛡 just before impact for a perfect parry — then counter! Fill the purple meter to unleash ⚡ Shadow Burst.</p>
 </div>
 
 <script src="game.js"></script>
