@@ -783,6 +783,10 @@ function showOver() {
   const msg = '🐍 I scored ' + G.score + ' in Neon Snake on PixelArena! Think you can beat it?';
   shareBtn.href = 'https://wa.me/?text=' + encodeURIComponent(msg + ' https://naresh-tech6380.github.io/pixelarena/games/neon-snake/');
   overOverlay.classList.remove('hidden');
+  if (window.PALeaderboard) {
+    if (G.newBest) PALeaderboard.bindRecordForm('neon-snake', G.score);
+    else PALeaderboard.hideRecordForm();
+  }
 }
 
 /* ---------------- Main loop (fixed timestep) ---------------- */

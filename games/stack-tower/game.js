@@ -457,6 +457,10 @@ function showOver() {
   const msg = '🧱 I stacked ' + G.score + ' blocks in Stack Tower on PixelArena! Can you beat it?';
   shareBtn.href = 'https://wa.me/?text=' + encodeURIComponent(msg + ' https://naresh-tech6380.github.io/pixelarena/games/stack-tower/');
   overOverlay.classList.remove('hidden');
+  if (window.PALeaderboard) {
+    if (G.newBest) PALeaderboard.bindRecordForm('stack-tower', G.score);
+    else PALeaderboard.hideRecordForm();
+  }
 }
 
 /* ---------------- Main loop (fixed timestep) ---------------- */

@@ -7,7 +7,7 @@
 
 /* ---------------- Pure constants ---------------- */
 const SC = {
-  W: 480, H: 720, FLOOR: 600,
+  W: 480, H: 720, FLOOR: 478,
   GRAV: 2600, JUMP_V: 940,
   WALK: 235, AIR_CTRL: 0.75,
   ROUND_TIME: 45, ROUNDS_TO_WIN: 2,
@@ -548,6 +548,10 @@ function endMatch() {
     gtag('event', 'game_over', { game_name: 'shadow_clash', result: won ? 'win' : 'lose', rounds_won: G.p1.rounds });
   }
   if (overOverlay) overOverlay.classList.remove('hidden');
+  if (window.PALeaderboard) {
+    if (G.newBest) PALeaderboard.bindRecordForm('shadow-clash', G.streak);
+    else PALeaderboard.hideRecordForm();
+  }
 }
 
 function pauseGame() {
@@ -1004,6 +1008,29 @@ if (joyZone) {
   window.addEventListener('mouseup', joyUp);
 }
 
+/* ---- Dynamic control fading: when a fighter walks into a bottom quadrant,
+   fade that side's button cluster to 20% so the action stays visible
+   straight through the buttons (CSS transition smooths the fade). ---- */
+const fcActsEl = document.querySelector('.fc-acts');
+function syncControlFade() {
+  if (!joyZone || !fcActsEl) return;
+  const midX = SC.W / 2, midY = SC.H * 0.5;
+  let joyFade = false, actsFade = false;
+  const fs = [G.p1, G.p2];
+  for (let i = 0; i < fs.length; i++) {
+    const f = fs[i];
+    if (f.y - SC.BODY_H / 2 > midY) {
+      if (f.x < midX) joyFade = true; else actsFade = true;
+    }
+  }
+  joyZone.style.opacity = joyFade ? '0.2' : '1';
+  fcActsEl.style.opacity = actsFade ? '0.2' : '1';
+}
+function resetControlFade() {
+  if (joyZone) joyZone.style.opacity = '1';
+  if (fcActsEl) fcActsEl.style.opacity = '1';
+}
+
 if (titleOverlay) titleOverlay.addEventListener('click', function () { startGame(); });
 
 /* Difficulty select: tapping a level starts the game at that difficulty */
@@ -1127,6 +1154,8 @@ function frame(t) {
   if (G.flash > 0) G.flash -= dt * 2;
   G.shake *= Math.pow(0.001, dt);
   if (G.shake < 0.2) G.shake = 0;
+  if (G.mode === 'fight' && !G.paused) syncControlFade();
+  else resetControlFade();
   updateParticles(sdt);
   /* embers drift always */
   for (let i = 0; i < G.embers.length; i++) {
@@ -1144,9 +1173,13 @@ function render(now) {
   ctx.save();
   if (G.shake > 0) ctx.translate((Math.random() - 0.5) * G.shake, (Math.random() - 0.5) * G.shake);
 
-  /* dojo backdrop (painted fallback if the image failed to load) */
+  /* dojo backdrop, shifted up so the painted mat stays under the raised floor.
+     The base fill matches the painting's dark foreground, so the strip
+     uncovered at the bottom blends in seamlessly. */
   if (bgReady) {
-    ctx.drawImage(bgImg, -20, -20, W + 40, H + 40);
+    ctx.fillStyle = '#140b41';
+    ctx.fillRect(-20, -20, W + 40, H + 40);
+    ctx.drawImage(bgImg, -20, -20 - (600 - SC.FLOOR), W + 40, H + 40);
   } else {
     const sky = ctx.createLinearGradient(0, 0, 0, H);
     sky.addColorStop(0, '#04010d'); sky.addColorStop(0.55, '#0d0424'); sky.addColorStop(0.85, '#170a33');
@@ -1240,22 +1273,25 @@ function render(now) {
 
 /* Floating name + HP bar above each fighter's head (player also gets shadow meter). */
 function drawHeadBar(f, name, isPlayer) {
-  const w = 96, h = 9;
+  const w = 104, h = 13;
   const x = clamp(f.x - w / 2, 6, SC.W - w - 6);
-  const y = f.y - SC.BODY_H - 38;
+  const y = f.y - SC.BODY_H - 46;
   ctx.save();
   ctx.fillStyle = 'rgba(2,0,10,0.62)';
-  ctx.fillRect(x - 2, y - 2, w + 4, h + 4);
+  ctx.fillRect(x - 3, y - 3, w + 6, h + 6);
+  ctx.strokeStyle = f.color; ctx.lineWidth = 2;
+  ctx.shadowColor = f.color; ctx.shadowBlur = 12;
+  ctx.strokeRect(x - 3, y - 3, w + 6, h + 6);
   ctx.fillStyle = f.color;
-  ctx.shadowColor = f.color; ctx.shadowBlur = 8;
+  ctx.shadowBlur = 10;
   ctx.fillRect(x, y, w * clamp(f.hp / f.maxHp, 0, 1), h);
   ctx.shadowBlur = 0;
   ctx.font = '700 10px Orbitron, sans-serif';
   ctx.textAlign = 'center';
   ctx.fillStyle = f.color;
-  ctx.fillText(name, f.x, y - 7);
+  ctx.fillText(name, f.x, y - 8);
   if (isPlayer) {
-    const my = y + h + 5;
+    const my = y + h + 7;
     ctx.fillStyle = 'rgba(2,0,10,0.62)';
     ctx.fillRect(x - 2, my - 1, w + 4, 6);
     if (f.meter > 0) {

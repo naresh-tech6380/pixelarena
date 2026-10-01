@@ -1,5 +1,5 @@
 /* PixelArena service worker — offline-first shell */
-const CACHE = 'pixelarena-v9';
+const CACHE = 'pixelarena-v11';
 const CORE = [
   './',
   './index.html',
@@ -7,6 +7,8 @@ const CORE = [
   './404.html',
   './css/style.css',
   './js/home.js',
+  './js/leaderboard.js',
+  './js/firebase-config.js',
   './assets/logo.svg',
   './assets/og-banner.png',
   './assets/icons/icon-192.png',
@@ -14,13 +16,17 @@ const CORE = [
   './manifest.webmanifest',
   './games/neon-rush/index.html',
   './games/neon-rush/game.js',
+  './games/neon-rush/assets/card-neon-rush.jpg',
   './games/neon-snake/index.html',
   './games/neon-snake/game.js',
+  './games/neon-snake/assets/card-neon-snake.jpg',
   './games/stack-tower/index.html',
   './games/stack-tower/game.js',
+  './games/stack-tower/assets/card-stack-tower.jpg',
   './games/shadow-clash/index.html',
   './games/shadow-clash/game.js',
   './games/shadow-clash/assets/dojo-bg.jpg',
+  './games/shadow-clash/assets/card-shadow-clash.jpg',
 ];
 
 self.addEventListener('install', (e) => {

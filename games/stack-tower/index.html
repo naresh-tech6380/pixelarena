@@ -66,6 +66,15 @@ gtag('config', 'G-P9CE8QL0CX');
       <div class="ov-eyebrow">Tower toppled</div>
       <div class="ov-score" id="finalScore">0</div>
       <div class="newbest" id="newBest">★ New best ★</div>
+      <div class="record-form hidden" id="recordForm">
+        <div class="record-title">🏆 NEW RECORD!</div>
+        <p class="record-sub">Enter your name for the PixelArena leaderboard</p>
+        <div class="record-row" id="recordRow">
+          <input class="record-input" id="recordName" maxlength="12" placeholder="Your name" autocomplete="off" enterkeyhint="done">
+          <button class="btn btn-primary btn-small" id="recordSave" type="button">Save</button>
+        </div>
+        <div class="record-done hidden" id="recordDone"></div>
+      </div>
       <div class="ov-best">Best <b id="overBest">0</b></div>
       <div class="ov-buttons">
         <button class="btn btn-primary" id="retryBtn">↻&nbsp; Play again</button>
@@ -85,6 +94,10 @@ gtag('config', 'G-P9CE8QL0CX');
   <p class="hint">Tip: line the block up perfectly to keep its full width and build a combo!</p>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="../../js/firebase-config.js"></script>
+<script src="../../js/leaderboard.js"></script>
 <script src="game.js"></script>
 </body>
 </html>

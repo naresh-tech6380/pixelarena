@@ -17,7 +17,7 @@ gtag('config', 'G-P9CE8QL0CX');
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PixelArena">
 <meta property="og:title" content="PixelArena — Neon Arcade Games">
-<meta property="og:description" content="Free neon arcade games for players 15–20. Play Neon Rush, Neon Snake and Stack Tower instantly — no logins, no downloads.">
+<meta property="og:description" content="Free neon arcade games for players 15–20. Play Neon Rush, Shadow Clash, Neon Snake and Stack Tower instantly — no logins, no downloads.">
 <meta property="og:url" content="https://naresh-tech6380.github.io/pixelarena/">
 <meta property="og:image" content="https://naresh-tech6380.github.io/pixelarena/assets/og-banner.png">
 <meta property="og:image:width" content="1200">
@@ -56,6 +56,7 @@ gtag('config', 'G-P9CE8QL0CX');
   </a>
   <div class="nav-links">
     <a href="#games" class="nav-link">Games</a>
+    <a href="#leaderboard" class="nav-link">🏆 Leaderboard</a>
     <a href="games/neon-rush/index.html" class="btn btn-small">Play now</a>
   </div>
 </nav>
@@ -64,16 +65,16 @@ gtag('config', 'G-P9CE8QL0CX');
   <div class="orb orb-a" aria-hidden="true"></div>
   <div class="orb orb-b" aria-hidden="true"></div>
   <p class="eyebrow">Free arcade · No logins · 60 FPS</p>
-  <h1 class="glitch">PIXEL<span>ARENA</span></h1>
-  <p class="tagline">Neon-soaked arcade games for the bold.<br>Tap in. Chase the high score. Beat your friends.</p>
+  <h1 class="hero-title">PLAY. <span>COMPETE.</span> REPEAT.</h1>
+  <p class="tagline">Jump into neon arcade battles — instant, online, zero setup.<br>Set a record. Get your name on the leaderboard.</p>
   <div class="hero-cta">
     <a href="#games" class="btn btn-primary">▶&nbsp; Start playing</a>
     <button id="randomGameBtn" class="btn btn-ghost" type="button">🎲&nbsp; Surprise me</button>
   </div>
   <div class="hero-stats">
-    <div><strong>4</strong><span>launch games</span></div>
-    <div><strong>60</strong><span>fps target</span></div>
-    <div><strong>0</strong><span>signups needed</span></div>
+    <div><strong>4</strong><span>games</span></div>
+    <div><strong>∞</strong><span>free forever</span></div>
+    <div><strong>0</strong><span>downloads</span></div>
   </div>
 </header>
 
@@ -91,7 +92,7 @@ gtag('config', 'G-P9CE8QL0CX');
 
       <article class="game-card live reveal">
         <div class="card-preview-wrap">
-          <canvas class="preview" data-preview="rush" width="440" height="240" aria-label="Neon Rush animated preview"></canvas>
+          <img class="card-art" src="games/neon-rush/assets/card-neon-rush.jpg" alt="Neon Rush key art" loading="lazy">
           <span class="badge badge-live">● Live</span>
         </div>
         <div class="card-body">
@@ -104,7 +105,7 @@ gtag('config', 'G-P9CE8QL0CX');
 
       <article class="game-card reveal">
         <div class="card-preview-wrap">
-          <canvas class="preview" data-preview="snake" width="440" height="240" aria-label="Neon Snake animated preview"></canvas>
+          <img class="card-art" src="games/neon-snake/assets/card-neon-snake.jpg" alt="Neon Snake key art" loading="lazy">
           <span class="badge badge-new">New</span>
         </div>
         <div class="card-body">
@@ -117,7 +118,7 @@ gtag('config', 'G-P9CE8QL0CX');
 
       <article class="game-card live reveal">
         <div class="card-preview-wrap">
-          <canvas id="towerPreview" width="440" height="240" aria-label="Stack Tower preview"></canvas>
+          <img class="card-art" src="games/stack-tower/assets/card-stack-tower.jpg" alt="Stack Tower key art" loading="lazy">
           <span class="badge badge-live">● Live</span>
         </div>
         <div class="card-body">
@@ -130,7 +131,7 @@ gtag('config', 'G-P9CE8QL0CX');
 
       <article class="game-card live reveal">
         <div class="card-preview-wrap">
-          <canvas id="clashPreview" width="440" height="240" aria-label="Shadow Clash preview"></canvas>
+          <img class="card-art" src="games/shadow-clash/assets/card-shadow-clash.jpg" alt="Shadow Clash key art" loading="lazy">
           <span class="badge badge-new">New</span>
         </div>
         <div class="card-body">
@@ -142,6 +143,12 @@ gtag('config', 'G-P9CE8QL0CX');
       </article>
 
     </div>
+  </section>
+
+  <section id="leaderboard" class="section reveal">
+    <h2 class="section-title">🏆 <span>Leaderboard</span></h2>
+    <p class="section-sub">Top 3 legends per game. Set a new record in any game to claim your spot.</p>
+    <div class="lb-grid" id="lbGrid"></div>
   </section>
 
   <section class="section features reveal">
@@ -182,100 +189,11 @@ gtag('config', 'G-P9CE8QL0CX');
   <p class="copy">© 2026 PixelArena</p>
 </footer>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/leaderboard.js"></script>
 <script src="js/home.js"></script>
-<script>
-/* Static Stack Tower card preview (home.js only animates canvas.preview) */
-(function () {
-  var cv = document.getElementById('towerPreview');
-  if (!cv) return;
-  var ctx = cv.getContext('2d'), W = cv.width, H = cv.height;
-  var g = ctx.createLinearGradient(0, 0, 0, H);
-  g.addColorStop(0, '#0a0424'); g.addColorStop(1, '#1c0736');
-  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-  ctx.strokeStyle = 'rgba(0,240,255,.08)'; ctx.lineWidth = 1;
-  for (var gx = 0; gx < W; gx += 28) { ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke(); }
-  // stacked tower, hue shifting upward
-  var bw = 210, bh = 22, y = H - 26;
-  for (var i = 0; i < 6; i++) {
-    var hue = 190 + i * 20, wob = (i % 2 ? 16 : -12), w2 = bw - i * 16;
-    ctx.save();
-    ctx.shadowColor = 'hsl(' + hue + ',100%,60%)'; ctx.shadowBlur = 12;
-    var bg = ctx.createLinearGradient(0, y, 0, y + bh);
-    bg.addColorStop(0, 'hsl(' + hue + ',92%,62%)'); bg.addColorStop(1, 'hsl(' + hue + ',88%,42%)');
-    ctx.fillStyle = bg;
-    if (ctx.roundRect) { ctx.beginPath(); ctx.roundRect(W / 2 - w2 / 2 + wob, y, w2, bh, 5); ctx.fill(); }
-    else ctx.fillRect(W / 2 - w2 / 2 + wob, y, w2, bh);
-    ctx.restore();
-    y -= bh + 3;
-  }
-  // sliding block on top with glow
-  var mhue = 190 + 6 * 20, mw = bw - 6 * 16, mx = W / 2 - mw / 2 + 34;
-  ctx.save();
-  ctx.shadowColor = 'hsl(' + mhue + ',100%,65%)'; ctx.shadowBlur = 18;
-  var mg = ctx.createLinearGradient(0, y, 0, y + bh);
-  mg.addColorStop(0, 'hsl(' + mhue + ',95%,70%)'); mg.addColorStop(1, 'hsl(' + mhue + ',90%,46%)');
-  ctx.fillStyle = mg;
-  if (ctx.roundRect) { ctx.beginPath(); ctx.roundRect(mx, y, mw, bh, 5); ctx.fill(); }
-  else ctx.fillRect(mx, y, mw, bh);
-  ctx.restore();
-})();
-</script>
-<script>
-/* Shadow Clash card preview: two silhouettes facing off under a moon */
-(function () {
-  var cv = document.getElementById('clashPreview');
-  if (!cv) return;
-  var ctx = cv.getContext('2d'), W = cv.width, H = cv.height;
-  var g = ctx.createLinearGradient(0, 0, 0, H);
-  g.addColorStop(0, '#070313'); g.addColorStop(.7, '#120826'); g.addColorStop(1, '#1c0a33');
-  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-  // moon
-  var mg = ctx.createRadialGradient(W/2, 66, 8, W/2, 66, 64);
-  mg.addColorStop(0, 'rgba(220,240,255,.95)'); mg.addColorStop(.35, 'rgba(180,220,255,.35)'); mg.addColorStop(1, 'rgba(180,220,255,0)');
-  ctx.fillStyle = mg; ctx.beginPath(); ctx.arc(W/2, 66, 64, 0, 7); ctx.fill();
-  ctx.fillStyle = '#e8f4ff'; ctx.beginPath(); ctx.arc(W/2, 66, 26, 0, 7); ctx.fill();
-  // floor
-  ctx.fillStyle = '#0a0518'; ctx.fillRect(0, H - 46, W, 46);
-  ctx.strokeStyle = 'rgba(0,240,255,.25)'; ctx.beginPath(); ctx.moveTo(0, H - 46); ctx.lineTo(W, H - 46); ctx.stroke();
-  // fighters
-  function fighter(x, color, flip) {
-    ctx.save();
-    ctx.translate(x, H - 46); ctx.scale(flip, 1);
-    ctx.shadowColor = color; ctx.shadowBlur = 16;
-    ctx.strokeStyle = '#05030c'; ctx.fillStyle = '#05030c'; ctx.lineWidth = 13; ctx.lineCap = 'round';
-    // legs (fighting stance)
-    ctx.beginPath(); ctx.moveTo(0, -58); ctx.lineTo(-20, 0); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(0, -58); ctx.lineTo(18, -2); ctx.stroke();
-    // torso
-    ctx.beginPath(); ctx.moveTo(0, -108); ctx.lineTo(0, -58); ctx.stroke();
-    // rear guard arm
-    ctx.beginPath(); ctx.moveTo(0, -96); ctx.lineTo(20, -84); ctx.stroke();
-    // lead punch arm extended
-    ctx.lineWidth = 11;
-    ctx.beginPath(); ctx.moveTo(0, -96); ctx.lineTo(44, -92); ctx.stroke();
-    ctx.fillStyle = color; ctx.beginPath(); ctx.arc(46, -92, 6, 0, 7); ctx.fill();
-    // head
-    ctx.fillStyle = '#05030c'; ctx.beginPath(); ctx.arc(4, -124, 13, 0, 7); ctx.fill();
-    // neon rim
-    ctx.shadowBlur = 0; ctx.strokeStyle = color; ctx.lineWidth = 2.5;
-    ctx.beginPath(); ctx.arc(4, -124, 13, -.6, 1.2); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(2, -108); ctx.lineTo(2, -60); ctx.stroke();
-    ctx.restore();
-  }
-  fighter(W/2 - 78, '#00f0ff', 1);
-  fighter(W/2 + 78, '#ff2fb3', -1);
-  // clash spark
-  ctx.save();
-  ctx.shadowColor = '#fff'; ctx.shadowBlur = 22;
-  ctx.strokeStyle = '#fff'; ctx.lineWidth = 3;
-  for (var i = 0; i < 8; i++) {
-    var a = i / 8 * Math.PI * 2;
-    ctx.beginPath(); ctx.moveTo(W/2, H - 138);
-    ctx.lineTo(W/2 + Math.cos(a) * 26, H - 138 + Math.sin(a) * 26); ctx.stroke();
-  }
-  ctx.restore();
-})();
-</script>
 <script>
 /* Surprise me: jump to a random game */
 (function () {

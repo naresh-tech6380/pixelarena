@@ -38,20 +38,26 @@ gtag('config', 'G-P9CE8QL0CX');
   .pip{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28)}
   .pip.won-p1{background:#00f0ff;box-shadow:0 0 9px #00f0ff;border-color:#00f0ff}
   .pip.won-p2{background:#ff2bd6;box-shadow:0 0 9px #ff2bd6;border-color:#ff2bd6}
-  .timer{font-family:Orbitron,sans-serif;font-weight:800;font-size:1.35rem;color:#fff;min-width:46px;text-align:center;text-shadow:0 0 14px rgba(0,240,255,.65);line-height:1}
-  .timer.low{color:#ff5d5d;text-shadow:0 0 14px rgba(255,60,60,.8);animation:tpulse 1s infinite}
+  .timer{font-family:Orbitron,sans-serif;font-weight:800;font-size:1.35rem;color:#fff;min-width:46px;text-align:center;text-shadow:0 0 10px #00f0ff,0 0 26px rgba(0,240,255,.8),0 0 46px rgba(255,43,214,.45);line-height:1}
+  .timer.low{color:#ff5d5d;text-shadow:0 0 10px #ff5d5d,0 0 26px rgba(255,60,60,.8);animation:tpulse 1s infinite}
   @keyframes tpulse{50%{transform:scale(1.12)}}
 
   /* ---- Touch controls ---- */
   .fight-controls{position:absolute;left:0;right:0;bottom:10px;z-index:6;display:flex;justify-content:flex-end;align-items:flex-end;padding:0 12px;pointer-events:none;touch-action:none}
   .fight-controls.hidden{display:none}
-  .fc-acts{display:grid;grid-template-columns:repeat(2,auto);gap:10px}
+  /* action buttons: 25% smaller, arranged in a thumb-sweep arc (burst at top) */
+  .fc-acts{position:relative;width:172px;height:120px;transition:opacity .25s ease}
+  .fc-acts .boss-btn{position:absolute}
+  #punchBtn{left:0;bottom:0}
+  #kickBtn{left:44px;bottom:16px}
+  #blockBtn{left:88px;bottom:30px}
+  #burstBtn{left:126px;bottom:48px}
   /* virtual joystick (bottom-left) */
-  .joy-zone{position:absolute;left:14px;bottom:4px;width:132px;height:132px;pointer-events:auto;touch-action:none;z-index:7}
+  .joy-zone{position:absolute;left:14px;bottom:4px;width:132px;height:132px;pointer-events:auto;touch-action:none;z-index:7;transition:opacity .25s ease}
   .joy-base{position:absolute;inset:0;border-radius:50%;background:rgba(10,4,30,.5);border:2px solid rgba(0,240,255,.5);box-shadow:0 0 18px rgba(0,240,255,.25),inset 0 0 24px rgba(0,240,255,.12)}
   .joy-knob{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(0,240,255,.9),rgba(0,120,140,.9));border:2px solid rgba(255,255,255,.35);box-shadow:0 0 16px rgba(0,240,255,.6)}
-  .boss-btn{pointer-events:auto;touch-action:manipulation;user-select:none;-webkit-user-select:none;width:62px;height:62px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:23px;line-height:1;color:#fff;background:rgba(10,4,30,.72);border:2px solid #00f0ff;cursor:pointer;box-shadow:0 0 18px rgba(0,240,255,.45),inset 0 0 12px rgba(0,240,255,.2);font-family:Orbitron,sans-serif;-webkit-tap-highlight-color:transparent}
-  .boss-btn span{font-size:8px;font-weight:800;letter-spacing:1px;margin-top:3px}
+  .boss-btn{pointer-events:auto;touch-action:manipulation;user-select:none;-webkit-user-select:none;width:46px;height:46px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:17px;line-height:1;color:#fff;background:rgba(10,4,30,.72);border:2px solid #00f0ff;cursor:pointer;box-shadow:0 0 18px rgba(0,240,255,.45),inset 0 0 12px rgba(0,240,255,.2);font-family:Orbitron,sans-serif;-webkit-tap-highlight-color:transparent}
+  .boss-btn span{font-size:7px;font-weight:800;letter-spacing:1px;margin-top:2px}
   .boss-btn:active,.boss-btn.held{transform:scale(.9);background:rgba(0,240,255,.22)}
   .kick-btn{border-color:#ff2bd6;box-shadow:0 0 18px rgba(255,43,214,.45),inset 0 0 12px rgba(255,43,214,.2)}
   .kick-btn:active,.kick-btn.held{background:rgba(255,43,214,.22)}
@@ -60,6 +66,9 @@ gtag('config', 'G-P9CE8QL0CX');
   .burst-btn{border-color:#5a3a8c;opacity:.45;filter:grayscale(.7)}
   .burst-btn.ready{opacity:1;filter:none;border-color:#c77dff;box-shadow:0 0 24px rgba(183,110,255,.85),inset 0 0 14px rgba(183,110,255,.35);animation:burstPulse 1s infinite}
   @keyframes burstPulse{50%{box-shadow:0 0 36px rgba(199,125,255,1),inset 0 0 18px rgba(199,125,255,.5)}}
+  /* ---- System icons: rounded neon frames (arcade-machine look) ---- */
+  .hud-btns .icon-btn{border:2px solid rgba(0,240,255,.75);border-radius:12px;background:rgba(10,4,30,.62);box-shadow:0 0 12px rgba(0,240,255,.45),inset 0 0 8px rgba(0,240,255,.18)}
+  .hud-btns .icon-btn:active{transform:scale(.92)}
   /* ---- Difficulty select ---- */
   .diff-row{display:flex;gap:10px;justify-content:center;margin:14px 0 4px}
   .diff-btn{font-family:Orbitron,sans-serif;display:flex;flex-direction:column;align-items:center;gap:4px;
@@ -114,7 +123,7 @@ gtag('config', 'G-P9CE8QL0CX');
         <button class="diff-btn" data-diff="2" type="button">🔥<span>HARD</span></button>
       </div>
       <div class="tap-hint">Tap a level to fight</div>
-      <div class="ov-controls">Joystick / A,D — move · hold back to guard · flick up / W — jump<br>J — punch · K — kick · L — block (tap = parry) · X — burst · Best of 3</div>
+      <div class="ov-controls">Joystick: move · hold BACK to block · flick up to jump · double-tap back to dash<br>J punch · K kick · L block (tap = parry) · X burst · 1/2/3 difficulty · Best of 3</div>
     </div>
 
     <div class="overlay hidden" id="overOverlay">
@@ -122,6 +131,15 @@ gtag('config', 'G-P9CE8QL0CX');
       <div class="ov-title" id="overTitle">VICTORY</div>
       <div class="ov-score" id="finalScore">2 – 0</div>
       <div class="newbest" id="newBest">★ New best streak ★</div>
+      <div class="record-form hidden" id="recordForm">
+        <div class="record-title">🏆 NEW RECORD!</div>
+        <p class="record-sub">Enter your name for the PixelArena leaderboard</p>
+        <div class="record-row" id="recordRow">
+          <input class="record-input" id="recordName" maxlength="12" placeholder="Your name" autocomplete="off" enterkeyhint="done">
+          <button class="btn btn-primary btn-small" id="recordSave" type="button">Save</button>
+        </div>
+        <div class="record-done hidden" id="recordDone"></div>
+      </div>
       <div class="ov-best">Win streak <b id="overStreak">0</b> · Best <b id="overBest">0</b></div>
       <div class="ov-buttons">
         <button class="btn btn-primary" id="retryBtn">↻&nbsp; Fight again</button>
@@ -138,9 +156,13 @@ gtag('config', 'G-P9CE8QL0CX');
     </div>
   </div>
 
-  <p class="hint">Tip: hold AWAY to auto-block. Tap 🛡 just before impact for a perfect parry — then counter! Fill the purple meter to unleash ⚡ Shadow Burst.</p>
+  <p class="hint">Tip: hold 🛡 or hold BACK to block · tap 🛡 at the last instant to PARRY. Fill the purple meter to unleash ⚡ Shadow Burst.</p>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="../../js/firebase-config.js"></script>
+<script src="../../js/leaderboard.js"></script>
 <script src="game.js"></script>
 </body>
 </html>

@@ -554,6 +554,10 @@ function showOver() {
   shareBtn.href = 'https://wa.me/?text=' + encodeURIComponent(
     'I scored ' + s + ' in Neon Rush on PixelArena — beat me if you can! ' + location.href);
   overOverlay.classList.remove('hidden');
+  if (window.PALeaderboard) {
+    if (G.newBest) PALeaderboard.bindRecordForm('neon-rush', s);
+    else PALeaderboard.hideRecordForm();
+  }
 }
 
 /* ---------------- Update ---------------- */
